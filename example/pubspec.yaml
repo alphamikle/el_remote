@@ -1,0 +1,89 @@
+name: example
+description: "Easiest Remote Localization Example"
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  easiest_localization:
+    path: ../../locy
+  easiest_remote_localization:
+    path: ../
+  localization:
+    path: ./localization
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/i18n/
+
+
+easiest_localization:
+  # List of strings-patterns that will not be processed despite matching reg_exp
+  # By default - empty
+  excluded:
+    - uk_UA
+
+  # The name of the class containing the localization content
+  class_name: LocalizationMessages
+
+  # Description of the generated localization package
+  description: Generated localization package
+
+  # The version of the easiest_localization_version package used as a dependency
+  # in the generated localization package.
+  #
+  # May be useful if you are using easiest_localization not from pub.dev
+  # By default it is the same version as in your application's pubspec.yaml
+  easiest_localization_version: "\n    path: ../../../locy"
+
+  # Name of the generated localization package and the folder with it
+  package_name: localization
+
+  # Relative path to the generated localization package
+  package_path: './'
+
+  # Version of the generated localization package
+  package_version: 1.0.0
+
+  # An example of supported file names with a default RegExp: https://regex101.com/r/CALDhV/2
+  #
+  # !!! A mandatory requirement for RegExp: it must have named parameter (?<lang>[a-z]{2}) !!!
+  reg_exp: '(\W)(?<pattern>intl)?_?(?<lang>[a-z]{2})[_-]?(?<country>[A-Z]{2})?.(ya?ml|json)$'
+
+  # The language code or full localization to be used as the content source,
+  # defaulting to other languages if no fields are described.
+  #
+  # By default - null. This means that if one language has content for certain keys,
+  # and another language does not have those keys at all - all values for those keys in
+  # the other language will be empty.
+  #
+  # Examples: "en", "en_US", "en_CA", etc.
+  primary_localization: en
+
+  # Whether to apply code formatting to the generated localization package.
+  #
+  # If true - generation takes 1-2 seconds longer. false by default
+  format_output: false
+
+  # Whether the merged localization files need to be saved.
+  #
+  # This can be useful when you have multiple files for the same language.
+  # For example - en, en_CA and en_UK. In this case, the main localization file - en,
+  # will contain all the content. And each of the specific files - en_CA / en_UK can contain
+  # only the content that should be different from the main file.
+  #
+  # However, for cloud storages, each of the language files must be fulfilled -
+  # this is where merged files will be useful.
+  save_merged_files: true

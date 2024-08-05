@@ -1,0 +1,55 @@
+# simple string
+app_title:
+  title: Journal de Bord, ${today}
+  date_format:
+    value: yyyy-MM-dd
+
+locale:
+  defaultLocale: "Locale par défaut : ${locale}"
+  selectedLocale: "Locale sélectionnée : ${locale}"
+
+# namespace
+main_screen:
+  header:
+    # string with description
+    title:
+      value: Bonjour, Capitaine!
+  floating_button:
+    tooltip: Ajouter un Événement
+
+# pluralized
+events_logged:
+  zero: Aucun événement ne s'est produit pendant votre sommeil
+  one: ${howMany} événement s'est produit pendant votre sommeil
+  two: ${howMany} événements se sont produits pendant votre sommeil
+  few: ${howMany} événements se sont produits pendant votre sommeil
+  many: Beaucoup d'événements se sont produits pendant votre sommeil
+  other: ${howMany} événements se sont produits pendant votre sommeil
+
+# simple gender
+officer_report:
+  male: Bonjour, Monsieur! Tous les systèmes sont opérationnels.
+  female: Bonjour, Madame! Tous les systèmes sont opérationnels.
+  other: Bonjour! Tous les systèmes sont opérationnels.
+
+# namespace
+logbook:
+  header:
+    value: Journal de Nuit
+  details:
+    one: Il y a eu ${howMany} incident signalé.
+    other: Il y a eu ${howMany} incidents signalés.
+  summary:
+    value: Résumé de toutes les activités pendant la nuit.
+  alerts:
+    title: Alertes
+    alert_message:
+      male: Capitaine, vous avez reçu ${alerts}.
+      female: Capitaine, vous avez reçu ${alerts}.
+      other: Capitaine, vous avez reçu ${alerts}.
+    alerts:
+      one: ${howMany} nouvelle alerte
+      other: ${howMany} nouvelles alertes
+
+# arguments
+captain_greeting: Bon retour, Capitaine ${username}!

@@ -1,0 +1,28 @@
+locale:
+  defaultLocale: "Langue par défaut : ${locale}"
+  selectedLocale: "Langue sélectionnée : ${locale}"
+
+main_screen:
+  header:
+    title:
+      value: Bonjour, Commandant !
+
+events_logged:
+  many: De nombreux événements se sont produits pendant votre sommeil
+
+officer_report:
+  male: Bonjour, Monsieur ! Tous les systèmes sont opérationnels.
+  female: Bonjour, Madame ! Tous les systèmes sont opérationnels.
+  other: Bonjour ! Tous les systèmes sont opérationnels.
+
+logbook:
+  header:
+    value: Journal de Nuit
+  summary:
+    value: Résumé de toutes les activités nocturnes.
+  alerts:
+    alert_message:
+      male: Commandant, vous avez reçu ${alerts}.
+      female: Commandante, vous avez reçu ${alerts}.
+
+captain_greeting: Bon retour, Commandant ${username}!

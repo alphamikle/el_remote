@@ -1,0 +1,55 @@
+# simple string
+app_title:
+  title: Бортовой Журнал, ${today}
+  date_format:
+    value: dd-MM-yyyy
+
+locale:
+  defaultLocale: "Язык по умолчанию: ${locale}"
+  selectedLocale: "Выбранный язык: ${locale}"
+
+# namespace
+main_screen:
+  header:
+    # string with description
+    title:
+      value: Доброе утро, Капитан!
+  floating_button:
+    tooltip: Добавить событие
+
+# pluralized
+events_logged:
+  zero: Во время вашего сна не произошло никаких событий
+  one: Произошло ${howMany} событие во время вашего сна
+  two: Произошло ${howMany} события во время вашего сна
+  few: Произошло ${howMany} события во время вашего сна
+  many: Произошло много событий во время вашего сна
+  other: Произошло ${howMany} событий во время вашего сна
+
+# simple gender
+officer_report:
+  male: Доброе утро, Сэр! Все системы работают нормально.
+  female: Доброе утро, Мадам! Все системы работают нормально.
+  other: Доброе утро! Все системы работают нормально.
+
+# namespace
+logbook:
+  header:
+    value: Ночной журнал
+  details:
+    one: Было сообщено о ${howMany} инциденте.
+    other: Было сообщено о ${howMany} инцидентах.
+  summary:
+    value: Краткий обзор всех ночных активностей.
+  alerts:
+    title: Оповещения
+    alert_message:
+      male: Капитан, вы получили ${alerts}.
+      female: Капитанка, вы получили ${alerts}.
+      other: Капитанн, вы получили ${alerts}.
+    alerts:
+      one: ${howMany} новое оповещение
+      other: ${howMany} новых оповещений
+
+# arguments
+captain_greeting: Добро пожаловать обратно, Капитан ${username}!

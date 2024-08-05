@@ -1,12 +1,34 @@
+import 'dart:ui';
+
+import 'package:dio/dio.dart';
+import 'package:easiest_remote_localization/src/model/cdn_source.dart';
+import 'package:easiest_remote_localization/src/provider/cdn_localization_provider.dart';
+import 'package:easiest_remote_localization/src/tools/types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:el_localizely/el_localizely.dart';
+const Locale en = Locale('en');
 
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
-  });
+  test(
+    'CND Localization Provider test',
+    () async {
+      final CDNLocalizationProvider provider = CDNLocalizationProvider<Json>(
+        options: BaseOptions(baseUrl: 'https://indieloper.b-cdn.net'),
+        factory: (CDNSource source, Json content) => content,
+        sources: const [
+          CDNSource(
+            locale: en,
+            path: '/en.yaml',
+            type: SourceType.yaml,
+          ),
+        ],
+      );
+
+      expect(provider.canLoad(en), true);
+
+      final Json messages = await provider.fetchLocalization(en);
+
+      expect(messages.length, greaterThan(0));
+    },
+  );
 }

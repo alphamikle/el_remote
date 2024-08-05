@@ -1,0 +1,61 @@
+# simple string
+app_title:
+  title: "[R] Бортовий Журнал, ${today}"
+  date_format:
+    value: dd MMM yyy
+    desc: Формат, який використовується для відображення дат у журналі
+
+locale:
+  defaultLocale: "Мова за замовчуванням: ${locale}"
+  selectedLocale: "Вибрана мова: ${locale}"
+
+# namespace
+main_screen:
+  header:
+    # string with description
+    title:
+      value: Доброго ранку, Капітане!
+      desc: Ранкове привітання, коли Капітан прокидається
+  floating_button:
+    tooltip: Додати подію
+
+# pluralized
+events_logged:
+  zero: Під час вашого сну не відбулося жодних подій
+  one: Відбулася ${howMany} подія під час вашого сну
+  two: Відбулося ${howMany} події під час вашого сну
+  few: Відбулося ${howMany} події під час вашого сну
+  many: Відбулося багато подій під час вашого сну
+  other: Відбулося ${howMany} подій під час вашого сну
+  desc: Кількість подій, які відбулися під час сну Капітана
+
+# simple gender
+officer_report:
+  male: Доброго ранку, Сер! Усі системи працюють нормально.
+  female: Доброго ранку, Мадам! Усі системи працюють нормально.
+  other: Доброго ранку! Усі системи працюють нормально.
+  desc: Ранковий звіт від офіцера до Капітана залежно від статі
+
+# namespace
+logbook:
+  header:
+    value: Нічний журнал
+    desc: Заголовок для розділу нічного журналу
+  details:
+    one: Було повідомлено про ${howMany} інцидент.
+    other: Було повідомлено про ${howMany} інцидентів.
+  summary:
+    value: Короткий огляд усіх нічних активностей.
+    desc: Короткий огляд нічних активностей
+  alerts:
+    title: Сповіщення
+    alert_message:
+      male: Капітане, ви отримали ${alerts}.
+      female: Капітано, ви отримали ${alerts}.
+      other: Капітане, ви отримали ${alerts}.
+    alerts:
+      one: ${howMany} нове сповіщення
+      other: ${howMany} нових сповіщень
+
+# arguments
+captain_greeting: Ласкаво просимо назад, Капітане ${username}!

@@ -1,0 +1,4 @@
+# For the same language but a different country, you can define only the values that should be changed.
+app_title:
+  date_format:
+    value: dd/MM/yyyy
