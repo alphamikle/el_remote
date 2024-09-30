@@ -124,8 +124,12 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
       throw Exception('Failed to load localization content for the locale $locale');
     }
 
-    final Messages messages = await _factory(source, response);
-
-    return messages;
+    try {
+      final Messages messages = await _factory(source, response);
+      return messages;
+    } catch (error, stackTrace) {
+      log('Error on parsing remote localization source', error: error, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 }
