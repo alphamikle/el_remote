@@ -12,21 +12,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<CDNLocalizationProvider<LocalizationMessages>> remoteLocalizationProviders = [
-      CDNLocalizationProvider<LocalizationMessages>(
+    final List<RemoteLocalizationProvider<LocalizationMessages>> remoteLocalizationProviders = [
+      RemoteLocalizationProvider<LocalizationMessages>(
         options: BaseOptions(baseUrl: 'https://indieloper.b-cdn.net'),
         cacheTTL: const Duration(minutes: 10),
         sources: const [
-          CDNSource(locale: Locale('en'), path: '/en.json', type: SourceType.json),
-          CDNSource(locale: Locale('en', 'CA'), path: '/en_CA.json', type: SourceType.json),
-          CDNSource(locale: Locale('fr', 'CA'), path: '/fr_CA.json', type: SourceType.json),
-          CDNSource(locale: Locale('fr', 'FR'), path: '/fr_FR.json', type: SourceType.json),
-          CDNSource(locale: Locale('ru', 'RU'), path: '/ru_RU.json', type: SourceType.json),
+          RemoteSource(locale: Locale('en'), url: '/en.json', type: SourceType.json),
+          RemoteSource(locale: Locale('en', 'CA'), url: '/en_CA.json', type: SourceType.json),
+          RemoteSource(locale: Locale('fr', 'CA'), url: '/fr_CA.json', type: SourceType.json),
+          RemoteSource(locale: Locale('fr', 'FR'), url: '/fr_FR.json', type: SourceType.json),
+          RemoteSource(locale: Locale('ru', 'RU'), url: '/ru_RU.json', type: SourceType.json),
 
           /// Ukrainian language exists only in CDN, without local version
-          CDNSource(locale: Locale('uk', 'UA'), path: '/uk_UA.yaml', type: SourceType.yaml),
+          RemoteSource(locale: Locale('uk', 'UA'), url: '/uk_UA.yaml', type: SourceType.yaml),
         ],
-        factory: (CDNSource source, Json content) => LocalizationMessages.fromJson(content),
+        factory: (RemoteSource source, Json content) => LocalizationMessages.fromJson(content),
       ),
     ];
 

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
-import 'package:easiest_remote_localization/src/model/cdn_source.dart';
-import 'package:easiest_remote_localization/src/provider/cdn_localization_provider.dart';
+import 'package:easiest_remote_localization/src/model/remote_source.dart';
+import 'package:easiest_remote_localization/src/provider/remote_localization_provider.dart';
 import 'package:easiest_remote_localization/src/tools/types.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,15 +10,15 @@ const Locale en = Locale('en');
 
 void main() {
   test(
-    'CND Localization Provider test',
+    'Remote Localization Test',
     () async {
-      final CDNLocalizationProvider provider = CDNLocalizationProvider<Json>(
+      final RemoteLocalizationProvider provider = RemoteLocalizationProvider<Json>(
         options: BaseOptions(baseUrl: 'https://indieloper.b-cdn.net'),
-        factory: (CDNSource source, Json content) => content,
+        factory: (RemoteSource source, Json content) => content,
         sources: const [
-          CDNSource(
+          RemoteSource(
             locale: en,
-            path: '/en.yaml',
+            url: '/en.yaml',
             type: SourceType.yaml,
           ),
         ],

@@ -5,21 +5,21 @@ enum SourceType {
   yaml,
 }
 
-class CDNSource {
-  const CDNSource({
+class RemoteSource {
+  const RemoteSource({
     required this.locale,
-    required this.path,
+    required this.url,
     required this.type,
   });
 
   final Locale locale;
 
-  final String path;
+  final String url;
 
   final SourceType type;
 
   @override
   String toString() {
-    return 'CDNSource{locale: $locale, path: $path, type: $type}';
+    return 'RemoteSource{locale: $locale, url: $url, type: $type}';
   }
 }

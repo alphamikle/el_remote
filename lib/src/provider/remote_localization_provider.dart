@@ -8,18 +8,18 @@ import 'package:easiest_localization/easiest_localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/cached_localization.dart';
-import '../model/cdn_source.dart';
-import '../service/cdn_service.dart';
+import '../model/remote_source.dart';
+import '../service/remote_localization_service.dart';
 import '../tools/extensions.dart';
 import '../tools/types.dart';
 
 String _cacheKey(Locale locale) => '3AAABA2E-45EF-4EDB-B8BE-BEC9DA258A7C | CND LOCALIZATION PROVIDER CACHE ($locale) | 0E555CAC-F6DE-4EFB-BB9C-13C441CCFF52';
 
-typedef LocalizationMessagesFactory<Messages> = FutureOr<Messages> Function(CDNSource source, Json content);
+typedef LocalizationMessagesFactory<Messages> = FutureOr<Messages> Function(RemoteSource source, Json content);
 
-class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages> {
-  CDNLocalizationProvider({
-    required List<CDNSource> sources,
+class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messages> {
+  RemoteLocalizationProvider({
+    required List<RemoteSource> sources,
     required LocalizationMessagesFactory<Messages> factory,
     String? name,
     BaseOptions? options,
@@ -29,28 +29,28 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
         _name = name,
         _sources = sources {
     final Dio dio = Dio(options);
-    _cdnService = CDNService(dio);
-    supportedLocales = sources.map((CDNSource source) => source.locale).toList(growable: false);
+    _service = RemoteLocalizationService(dio);
+    supportedLocales = sources.map((RemoteSource source) => source.locale).toList(growable: false);
   }
 
-  CDNLocalizationProvider.raw({
-    required CDNService cdnService,
-    required List<CDNSource> sources,
+  RemoteLocalizationProvider.raw({
+    required RemoteLocalizationService service,
+    required List<RemoteSource> sources,
     required LocalizationMessagesFactory<Messages> factory,
     required this.supportedLocales,
     required SharedPreferences sharedPreferences,
     String? name,
     Duration? cacheTTL,
   })  : _sharedPreferences = sharedPreferences,
-        _cdnService = cdnService,
+        _service = service,
         _sources = sources,
         _name = name,
         _factory = factory,
         _cacheTTL = cacheTTL,
         _sharedPreferencesInitialized = true;
 
-  late final CDNService _cdnService;
-  final List<CDNSource> _sources;
+  late final RemoteLocalizationService _service;
+  final List<RemoteSource> _sources;
   final String? _name;
   final LocalizationMessagesFactory<Messages> _factory;
   final Duration? _cacheTTL;
@@ -64,10 +64,10 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
   bool _sharedPreferencesInitialized = false;
 
   @override
-  String get name => _name ?? 'CDNLocalizationProvider';
+  String get name => _name ?? 'RemoteLocalizationProvider';
 
   @override
-  bool canLoad(Locale locale) => _sources.any((CDNSource it) => it.locale == locale);
+  bool canLoad(Locale locale) => _sources.any((RemoteSource it) => it.locale == locale);
 
   @override
   Future<Messages> fetchLocalization(Locale locale) async {
@@ -78,7 +78,7 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
       _sharedPreferencesInitialized = true;
     }
 
-    final CDNSource? source = _sources.firstWhereOrNull((CDNSource source) => source.locale == locale);
+    final RemoteSource? source = _sources.firstWhereOrNull((RemoteSource source) => source.locale == locale);
 
     if (source == null) {
       throw Exception('Locale $locale is not supported');
@@ -106,7 +106,7 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
     Json? response;
 
     try {
-      response = await _cdnService.downloadFile(source);
+      response = await _service.fetchLocalization(source);
       final CachedLocalization cache = CachedLocalization(
         locale: locale,
         messages: response,
@@ -115,7 +115,7 @@ class CDNLocalizationProvider<Messages> implements LocalizationProvider<Messages
       _cache[locale] = cache;
       await _sharedPreferences.setString(cacheKey, jsonEncode(cache.toJson()));
     } catch (error, stackTrace) {
-      log('Error on load CDN Localization content', error: error, stackTrace: stackTrace, name: 'CDN PROVIDER');
+      log('Error on load remote localization content', error: error, stackTrace: stackTrace, name: 'RemoteLocalizationProvider');
     }
 
     response ??= cachedValue?.messages;

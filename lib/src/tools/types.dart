@@ -4,6 +4,9 @@ typedef Json = Map<String, dynamic>;
 typedef DJson = Map<dynamic, dynamic>;
 
 Json castToJson(dynamic json) {
+  if (json is Json) {
+    return json;
+  }
   if (json is DJson) {
     final Map<String, dynamic> result = <String, dynamic>{};
     for (final MapEntry<dynamic, dynamic> entry in json.entries) {

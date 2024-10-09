@@ -4,18 +4,18 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:yaml/yaml.dart';
 
-import '../model/cdn_source.dart';
+import '../model/remote_source.dart';
 import '../tools/types.dart';
 
-class CDNService {
-  const CDNService(this.dio);
+class RemoteLocalizationService {
+  const RemoteLocalizationService(this.dio);
 
   final Dio dio;
 
-  Future<Json> downloadFile(CDNSource source) async {
+  Future<Json> fetchLocalization(RemoteSource source) async {
     try {
       final Response<dynamic> response = await dio.get(
-        source.path,
+        source.url,
       );
       final dynamic data = response.data;
       if (data is String) {
@@ -27,10 +27,10 @@ class CDNService {
       } else if (data is Map) {
         return data is Json ? data : castToJson(data);
       }
-      log('The response of the CDN service should be a type of String. Actual response is:\n$data', name: 'CDN SERVICE');
+      log('The response of the RemoteLocalizationService should be a type of String. Actual response is:\n$data', name: 'RemoteLocalizationService');
       return {};
     } catch (error, stackTrace) {
-      log('Error on load localization with source $source', error: error, stackTrace: stackTrace, name: 'CDN SERVICE');
+      log('Error on load localization with source $source', error: error, stackTrace: stackTrace, name: 'RemoteLocalizationService');
     }
     return <String, dynamic>{};
   }
