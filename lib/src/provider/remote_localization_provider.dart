@@ -13,7 +13,7 @@ import '../service/remote_localization_service.dart';
 import '../tools/extensions.dart';
 import '../tools/types.dart';
 
-String _cacheKey(Locale locale) => '3AAABA2E-45EF-4EDB-B8BE-BEC9DA258A7C | CND LOCALIZATION PROVIDER CACHE ($locale) | 0E555CAC-F6DE-4EFB-BB9C-13C441CCFF52';
+String _cacheKey(Locale locale) => '3AAABA2E-45EF-4EDB-B8BE-BEC9DA258A7C | REMOTE LOCALIZATION PROVIDER CACHE ($locale) | 0E555CAC-F6DE-4EFB-BB9C-13C441CCFF52';
 
 typedef LocalizationMessagesFactory<Messages> = FutureOr<Messages> Function(RemoteSource source, Json content);
 
