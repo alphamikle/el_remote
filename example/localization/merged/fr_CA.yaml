@@ -1,0 +1,38 @@
+app_title: 
+  title: 'Journal de Bord, ${today}'
+  date_format: 'yyyy-MM-dd'
+locale: 
+  defaultLocale: 'Locale par défaut : ${locale}'
+  selectedLocale: 'Locale sélectionnée : ${locale}'
+main_screen: 
+  header: 
+    title: 'Bonjour, Capitaine!'
+  floating_button: 
+    tooltip: 'Ajouter un Événement'
+events_logged: 
+  zero: "Aucun événement ne s'est produit pendant votre sommeil"
+  one: "${howMany} événement s'est produit pendant votre sommeil"
+  two: '${howMany} événements se sont produits pendant votre sommeil'
+  few: '${howMany} événements se sont produits pendant votre sommeil'
+  many: "Beaucoup d'événements se sont produits pendant votre sommeil"
+  other: '${howMany} événements se sont produits pendant votre sommeil'
+officer_report: 
+  male: 'Bonjour, Monsieur! Tous les systèmes sont opérationnels.'
+  female: 'Bonjour, Madame! Tous les systèmes sont opérationnels.'
+  other: 'Bonjour! Tous les systèmes sont opérationnels.'
+logbook: 
+  header: 'Journal de Nuit'
+  details: 
+    one: 'Il y a eu ${howMany} incident signalé.'
+    other: 'Il y a eu ${howMany} incidents signalés.'
+  summary: 'Résumé de toutes les activités pendant la nuit.'
+  alerts: 
+    title: 'Alertes'
+    alert_message: 
+      male: 'Capitaine, vous avez reçu ${alerts}.'
+      female: 'Capitaine, vous avez reçu ${alerts}.'
+      other: 'Capitaine, vous avez reçu ${alerts}.'
+    alerts: 
+      one: '${howMany} nouvelle alerte'
+      other: '${howMany} nouvelles alertes'
+captain_greeting: 'Bon retour, Capitaine ${username}!'

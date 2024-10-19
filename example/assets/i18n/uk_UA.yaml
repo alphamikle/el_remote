@@ -1,9 +1,7 @@
 # simple string
 app_title:
   title: "[R] Бортовий Журнал, ${today}"
-  date_format:
-    value: dd MMM yyy
-    desc: Формат, який використовується для відображення дат у журналі
+  date_format: dd MMM yyy
 
 locale:
   defaultLocale: "Мова за замовчуванням: ${locale}"
@@ -13,9 +11,7 @@ locale:
 main_screen:
   header:
     # string with description
-    title:
-      value: Доброго ранку, Капітане!
-      desc: Ранкове привітання, коли Капітан прокидається
+    title: Доброго ранку, Капітане!
   floating_button:
     tooltip: Додати подію
 
@@ -38,15 +34,11 @@ officer_report:
 
 # namespace
 logbook:
-  header:
-    value: Нічний журнал
-    desc: Заголовок для розділу нічного журналу
+  header: Нічний журнал
   details:
     one: Було повідомлено про ${howMany} інцидент.
     other: Було повідомлено про ${howMany} інцидентів.
-  summary:
-    value: Короткий огляд усіх нічних активностей.
-    desc: Короткий огляд нічних активностей
+  summary: Короткий огляд усіх нічних активностей.
   alerts:
     title: Сповіщення
     alert_message:

@@ -1,8 +1,7 @@
 # simple string
 app_title:
   title: Journal de Bord, ${today}
-  date_format:
-    value: yyyy-MM-dd
+  date_format: yyyy-MM-dd
 
 locale:
   defaultLocale: "Locale par défaut : ${locale}"
@@ -11,9 +10,7 @@ locale:
 # namespace
 main_screen:
   header:
-    # string with description
-    title:
-      value: Bonjour, Capitaine!
+    title: Bonjour, Capitaine!
   floating_button:
     tooltip: Ajouter un Événement
 
@@ -34,13 +31,11 @@ officer_report:
 
 # namespace
 logbook:
-  header:
-    value: Journal de Nuit
+  header: Journal de Nuit
   details:
     one: Il y a eu ${howMany} incident signalé.
     other: Il y a eu ${howMany} incidents signalés.
-  summary:
-    value: Résumé de toutes les activités pendant la nuit.
+  summary: Résumé de toutes les activités pendant la nuit.
   alerts:
     title: Alertes
     alert_message:

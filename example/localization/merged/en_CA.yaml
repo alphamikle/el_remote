@@ -1,0 +1,38 @@
+app_title: 
+  title: 'Ship Log, ${today}'
+  date_format: 'dd/MM/yyyy'
+locale: 
+  defaultLocale: 'Default locale: ${locale}'
+  selectedLocale: 'Selected locale: ${locale}'
+main_screen: 
+  header: 
+    title: 'Good morning, Captain!'
+  floating_button: 
+    tooltip: 'Add Event'
+events_logged: 
+  zero: 'No events occurred during your sleep'
+  one: '${howMany} event occurred during your sleep'
+  two: '${howMany} events occurred during your sleep'
+  few: '${howMany} events occurred during your sleep'
+  many: 'Many events occurred during your sleep'
+  other: '${howMany} events occurred during your sleep'
+officer_report: 
+  male: 'Good morning, Sir! All systems are operational.'
+  female: "Good morning, Ma'am! All systems are operational."
+  other: 'Good morning! All systems are operational.'
+logbook: 
+  header: 'Nightly Log'
+  details: 
+    one: 'There was ${howMany} incident reported.'
+    other: 'There were ${howMany} incidents reported.'
+  summary: 'Summary of all activities during the night.'
+  alerts: 
+    title: 'Alerts'
+    alert_message: 
+      male: 'Captain, you received ${alerts}.'
+      female: 'Captainess, you received ${alerts}.'
+      other: 'Captainx, you received ${alerts}.'
+    alerts: 
+      one: '${howMany} new alert'
+      other: '${howMany} new alerts'
+captain_greeting: 'Welcome back, Captain ${username}!'

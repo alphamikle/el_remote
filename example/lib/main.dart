@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
           RemoteSource(locale: Locale('en'), url: '/en.json', type: SourceType.json),
           RemoteSource(locale: Locale('en', 'CA'), url: '/en_CA.json', type: SourceType.json),
           RemoteSource(locale: Locale('fr', 'CA'), url: '/fr_CA.json', type: SourceType.json),
-          RemoteSource(locale: Locale('fr', 'FR'), url: '/fr_FR.json', type: SourceType.json),
           RemoteSource(locale: Locale('ru', 'RU'), url: '/ru_RU.json', type: SourceType.json),
 
           /// Ukrainian language exists only in CDN, without local version

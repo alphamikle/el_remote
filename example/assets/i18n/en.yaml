@@ -1,9 +1,7 @@
 # simple string
 app_title:
   title: Ship Log, ${today}
-  date_format:
-    value: MM/dd/yyyy
-    desc: Format used for displaying dates in the log
+  date_format: MM/dd/yyyy
 
 locale:
   defaultLocale: "Default locale: ${locale}"
@@ -12,10 +10,7 @@ locale:
 # namespace
 main_screen:
   header:
-    # string with description
-    title:
-      value: Good morning, Captain!
-      desc: Morning greeting when the Captain wakes up
+    title: Good morning, Captain!
   floating_button:
     tooltip: Add Event
 
@@ -38,15 +33,11 @@ officer_report:
 
 # namespace
 logbook:
-  header:
-    value: Nightly Log
-    desc: Title for the nightly log section
+  header: Nightly Log
   details:
     one: There was ${howMany} incident reported.
     other: There were ${howMany} incidents reported.
-  summary:
-    value: Summary of all activities during the night.
-    desc: Brief summary of nightly activities
+  summary: Summary of all activities during the night.
   alerts:
     title: Alerts
     alert_message:

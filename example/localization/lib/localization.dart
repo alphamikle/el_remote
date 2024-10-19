@@ -2,17 +2,21 @@
 
 // ignore_for_file: type=lint
 
-import 'dart:developer';
+import 'dart:developer' show log;
 
-import 'package:easiest_localization/easiest_localization.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
+import 'package:easiest_localization/easiest_localization.dart' show LocalizationProvider;
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/widgets.dart' show BuildContext, Locale, Localizations, LocalizationsDelegate;
+import 'package:flutter_localizations/flutter_localizations.dart' show GlobalMaterialLocalizations;
+import 'package:intl/intl.dart' show Intl;
 
 final RegExp _variableRegExp = RegExp(r'\$\{[^}]+\} ?');
 
 typedef Checker<T> = bool Function(T value);
+
+const String localizationPackageVersion = r'1.0.0';
+
+const String? localizationVersion = null;
 
 enum Gender {
   male,
@@ -28,15 +32,13 @@ class AppTitle {
   factory AppTitle.fromJson(Map<String, dynamic> json) {
     return AppTitle(
       title: ({required String today}) =>
-          (json[r'''title'''] ?? '').toString().replaceAll(r'${today}', today).replaceAll(_variableRegExp, ''),
-      dateFormat: (json[r'''date_format''']['value'] ?? '').toString(),
+          (json['title'] ?? '').toString().replaceAll(r'${today}', today).replaceAll(_variableRegExp, ''),
+      dateFormat: (json['date_format'] ?? '').toString(),
     );
   }
   final String Function({required String today}) title;
 
-  /// Format used for displaying dates in the log Format used for displaying dates in the log Format used for displaying dates in the log
   final String dateFormat;
-
   Map<String, Object> get _content => {
         r'''title''': title,
         r'''date_format''': dateFormat,
@@ -49,8 +51,23 @@ class AppTitle {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -61,14 +78,10 @@ class $Locale {
   });
   factory $Locale.fromJson(Map<String, dynamic> json) {
     return $Locale(
-      defaultLocale: ({required String locale}) => (json[r'''defaultLocale'''] ?? '')
-          .toString()
-          .replaceAll(r'${locale}', locale)
-          .replaceAll(_variableRegExp, ''),
-      selectedLocale: ({required String locale}) => (json[r'''selectedLocale'''] ?? '')
-          .toString()
-          .replaceAll(r'${locale}', locale)
-          .replaceAll(_variableRegExp, ''),
+      defaultLocale: ({required String locale}) =>
+          (json['defaultLocale'] ?? '').toString().replaceAll(r'${locale}', locale).replaceAll(_variableRegExp, ''),
+      selectedLocale: ({required String locale}) =>
+          (json['selectedLocale'] ?? '').toString().replaceAll(r'${locale}', locale).replaceAll(_variableRegExp, ''),
     );
   }
   final String Function({required String locale}) defaultLocale;
@@ -87,8 +100,23 @@ class $Locale {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -99,8 +127,8 @@ class MainScreen {
   });
   factory MainScreen.fromJson(Map<String, dynamic> json) {
     return MainScreen(
-      header: MainScreenHeader.fromJson((json[r'''header'''] as Map).cast<String, dynamic>()),
-      floatingButton: MainScreenFloatingButton.fromJson((json[r'''floating_button'''] as Map).cast<String, dynamic>()),
+      header: MainScreenHeader.fromJson((json['header'] as Map).cast<String, dynamic>()),
+      floatingButton: MainScreenFloatingButton.fromJson((json['floating_button'] as Map).cast<String, dynamic>()),
     );
   }
   final MainScreenHeader header;
@@ -119,8 +147,23 @@ class MainScreen {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -130,13 +173,10 @@ class MainScreenHeader {
   });
   factory MainScreenHeader.fromJson(Map<String, dynamic> json) {
     return MainScreenHeader(
-      title: (json[r'''title''']['value'] ?? '').toString(),
+      title: (json['title'] ?? '').toString(),
     );
   }
-
-  /// Morning greeting when the Captain wakes up Morning greeting when the Captain wakes up Morning greeting when the Captain wakes up
   final String title;
-
   Map<String, Object> get _content => {
         r'''title''': title,
       };
@@ -148,8 +188,23 @@ class MainScreenHeader {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -159,7 +214,7 @@ class MainScreenFloatingButton {
   });
   factory MainScreenFloatingButton.fromJson(Map<String, dynamic> json) {
     return MainScreenFloatingButton(
-      tooltip: (json[r'''tooltip'''] ?? '').toString(),
+      tooltip: (json['tooltip'] ?? '').toString(),
     );
   }
   final String tooltip;
@@ -174,8 +229,23 @@ class MainScreenFloatingButton {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -188,39 +258,35 @@ class Logbook {
   });
   factory Logbook.fromJson(Map<String, dynamic> json) {
     return Logbook(
-      header: (json[r'''header''']['value'] ?? '').toString(),
-      details: (int howMany, {int? precision}) => Intl.plural(
+      header: (json['header'] ?? '').toString(),
+      details: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''details''',
-        zero: json[r'''details''']['zero'] == null
+        name: 'details',
+        zero: json['details']['zero'] == null || json['details']['zero'].toString().trim() == ''
             ? null
-            : json[r'''details''']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json[r'''details''']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json[r'''details''']['two'] == null
+            : json['details']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['details']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+        two: json['details']['two'] == null || json['details']['two'].toString().trim() == ''
             ? null
-            : json[r'''details''']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json[r'''details''']['few'] == null
+            : json['details']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        few: json['details']['few'] == null || json['details']['few'].toString().trim() == ''
             ? null
-            : json[r'''details''']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json[r'''details''']['many'] == null
+            : json['details']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        many: json['details']['many'] == null || json['details']['many'].toString().trim() == ''
             ? null
-            : json[r'''details''']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json[r'''details''']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['details']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['details']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
-      summary: (json[r'''summary''']['value'] ?? '').toString(),
-      alerts: LogbookAlerts.fromJson((json[r'''alerts'''] as Map).cast<String, dynamic>()),
+      summary: (json['summary'] ?? '').toString(),
+      alerts: LogbookAlerts.fromJson((json['alerts'] as Map).cast<String, dynamic>()),
     );
   }
-
-  /// Title for the nightly log section Title for the nightly log section Title for the nightly log section
   final String header;
 
-  final String Function(int howMany, {int? precision}) details;
+  final String Function(num howMany, {int? precision}) details;
 
-  /// Brief summary of nightly activities Brief summary of nightly activities Brief summary of nightly activities
   final String summary;
-
   final LogbookAlerts alerts;
 
   Map<String, Object> get _content => {
@@ -237,8 +303,23 @@ class Logbook {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -250,44 +331,41 @@ class LogbookAlerts {
   });
   factory LogbookAlerts.fromJson(Map<String, dynamic> json) {
     return LogbookAlerts(
-      title: (json[r'''title'''] ?? '').toString(),
+      title: (json['title'] ?? '').toString(),
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
-        name: r'''alert_message''',
-        female: json[r'''alert_message''']['female'] == null
+        name: 'alert_message',
+        female: json['alert_message']['female'] == null || json['alert_message']['female'].toString().trim() == ''
             ? null
-            : json[r'''alert_message''']['female']
+            : json['alert_message']['female']
                 .toString()
                 .replaceAll(r'${alerts}', alerts)
                 .replaceAll(_variableRegExp, ''),
-        male: json[r'''alert_message''']['male'] == null
+        male: json['alert_message']['male'] == null || json['alert_message']['male'].toString().trim() == ''
             ? null
-            : json[r'''alert_message''']['male']
-                .toString()
-                .replaceAll(r'${alerts}', alerts)
-                .replaceAll(_variableRegExp, ''),
-        other: (json[r'''alert_message''']['other'] ?? '')
+            : json['alert_message']['male'].toString().replaceAll(r'${alerts}', alerts).replaceAll(_variableRegExp, ''),
+        other: (json['alert_message']['other'] ?? '')
             .toString()
             .replaceAll(r'${alerts}', alerts)
             .replaceAll(_variableRegExp, ''),
       ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
+      alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''alerts''',
-        zero: json[r'''alerts''']['zero'] == null
+        name: 'alerts',
+        zero: json['alerts']['zero'] == null || json['alerts']['zero'].toString().trim() == ''
             ? null
-            : json[r'''alerts''']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json[r'''alerts''']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json[r'''alerts''']['two'] == null
+            : json['alerts']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['alerts']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+        two: json['alerts']['two'] == null || json['alerts']['two'].toString().trim() == ''
             ? null
-            : json[r'''alerts''']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json[r'''alerts''']['few'] == null
+            : json['alerts']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        few: json['alerts']['few'] == null || json['alerts']['few'].toString().trim() == ''
             ? null
-            : json[r'''alerts''']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json[r'''alerts''']['many'] == null
+            : json['alerts']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        many: json['alerts']['many'] == null || json['alerts']['many'].toString().trim() == ''
             ? null
-            : json[r'''alerts''']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json[r'''alerts''']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['alerts']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['alerts']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
     );
@@ -296,7 +374,7 @@ class LogbookAlerts {
 
   final String Function(Gender gender, {required String alerts}) alertMessage;
 
-  final String Function(int howMany, {int? precision}) alerts;
+  final String Function(num howMany, {int? precision}) alerts;
 
   Map<String, Object> get _content => {
         r'''title''': title,
@@ -311,8 +389,23 @@ class LogbookAlerts {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
@@ -328,37 +421,41 @@ class LocalizationMessages {
   });
   factory LocalizationMessages.fromJson(Map<String, dynamic> json) {
     return LocalizationMessages(
-      appTitle: AppTitle.fromJson((json[r'''app_title'''] as Map).cast<String, dynamic>()),
-      locale: $Locale.fromJson((json[r'''locale'''] as Map).cast<String, dynamic>()),
-      mainScreen: MainScreen.fromJson((json[r'''main_screen'''] as Map).cast<String, dynamic>()),
-      eventsLogged: (int howMany, {int? precision}) => Intl.plural(
+      appTitle: AppTitle.fromJson((json['app_title'] as Map).cast<String, dynamic>()),
+      locale: $Locale.fromJson((json['locale'] as Map).cast<String, dynamic>()),
+      mainScreen: MainScreen.fromJson((json['main_screen'] as Map).cast<String, dynamic>()),
+      eventsLogged: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''events_logged''',
-        zero: json[r'''events_logged''']['zero'] == null
+        name: 'events_logged',
+        zero: json['events_logged']['zero'] == null || json['events_logged']['zero'].toString().trim() == ''
             ? null
-            : json[r'''events_logged''']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json[r'''events_logged''']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json[r'''events_logged''']['two'] == null
+            : json['events_logged']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['events_logged']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+        two: json['events_logged']['two'] == null || json['events_logged']['two'].toString().trim() == ''
             ? null
-            : json[r'''events_logged''']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json[r'''events_logged''']['few'] == null
+            : json['events_logged']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        few: json['events_logged']['few'] == null || json['events_logged']['few'].toString().trim() == ''
             ? null
-            : json[r'''events_logged''']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json[r'''events_logged''']['many'] == null
+            : json['events_logged']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        many: json['events_logged']['many'] == null || json['events_logged']['many'].toString().trim() == ''
             ? null
-            : json[r'''events_logged''']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json[r'''events_logged''']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['events_logged']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['events_logged']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
       officerReport: (Gender gender) => Intl.gender(
         gender.name,
-        name: r'''officer_report''',
-        female: json[r'''officer_report''']['female'] == null ? null : json[r'''officer_report''']['female'].toString(),
-        male: json[r'''officer_report''']['male'] == null ? null : json[r'''officer_report''']['male'].toString(),
-        other: (json[r'''officer_report''']['other'] ?? '').toString(),
+        name: 'officer_report',
+        female: json['officer_report']['female'] == null || json['officer_report']['female'].toString().trim() == ''
+            ? null
+            : json['officer_report']['female'].toString(),
+        male: json['officer_report']['male'] == null || json['officer_report']['male'].toString().trim() == ''
+            ? null
+            : json['officer_report']['male'].toString(),
+        other: (json['officer_report']['other'] ?? '').toString(),
       ),
-      logbook: Logbook.fromJson((json[r'''logbook'''] as Map).cast<String, dynamic>()),
-      captainGreeting: ({required String username}) => (json[r'''captain_greeting'''] ?? '')
+      logbook: Logbook.fromJson((json['logbook'] as Map).cast<String, dynamic>()),
+      captainGreeting: ({required String username}) => (json['captain_greeting'] ?? '')
           .toString()
           .replaceAll(r'${username}', username)
           .replaceAll(_variableRegExp, ''),
@@ -371,7 +468,7 @@ class LocalizationMessages {
   final MainScreen mainScreen;
 
   /// Number of events that occurred while the Captain was asleep Number of events that occurred while the Captain was asleep Number of events that occurred while the Captain was asleep
-  final String Function(int howMany, {int? precision}) eventsLogged;
+  final String Function(num howMany, {int? precision}) eventsLogged;
 
   /// Morning report from the officer to the Captain based on gender Morning report from the officer to the Captain based on gender Morning report from the officer to the Captain based on gender
   final String Function(Gender gender) officerReport;
@@ -397,15 +494,30 @@ class LocalizationMessages {
     throw ArgumentError('Not found content for the key $key with type $T');
   }
 
-  dynamic operator [](Object? key) {
-    return _content[key];
+  Map<String, Object> get content => _content;
+
+  List<Object> get contentList => _content.values.toList();
+
+  int get length => _content.length;
+
+  Object? operator [](Object? key) {
+    final Object? value = _content[key];
+    if (value == null && key is String) {
+      final int? index = int.tryParse(key);
+      if (index == null || index >= contentList.length || index < 0) {
+        return null;
+      }
+
+      return contentList[index];
+    }
+    return value;
   }
 }
 
 final LocalizationMessages en = LocalizationMessages(
   appTitle: AppTitle(
     title: ({required String today}) => '''Ship Log, ${today}''',
-    dateFormat: '''MM/dd/yyyy''',
+    dateFormat: 'MM/dd/yyyy',
   ),
   locale: $Locale(
     defaultLocale: ({required String locale}) => '''Default locale: ${locale}''',
@@ -413,52 +525,52 @@ final LocalizationMessages en = LocalizationMessages(
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
-      title: '''Good morning, Captain!''',
+      title: 'Good morning, Captain!',
     ),
     floatingButton: MainScreenFloatingButton(
-      tooltip: '''Add Event''',
+      tooltip: 'Add Event',
     ),
   ),
-  eventsLogged: (int howMany, {int? precision}) => Intl.plural(
+  eventsLogged: (num howMany, {int? precision}) => Intl.plural(
     howMany,
-    name: r'''events_logged''',
-    zero: '''No events occurred during your sleep''',
+    name: 'events_logged',
+    zero: 'No events occurred during your sleep',
     one: '''${howMany} event occurred during your sleep''',
     two: '''${howMany} events occurred during your sleep''',
     few: '''${howMany} events occurred during your sleep''',
-    many: '''Many events occurred during your sleep''',
+    many: 'Many events occurred during your sleep',
     other: '''${howMany} events occurred during your sleep''',
     precision: precision,
   ),
   officerReport: (Gender gender) => Intl.gender(
     gender.name,
-    name: r'''officer_report''',
+    name: 'officer_report',
     female: '''Good morning, Ma'am! All systems are operational.''',
-    male: '''Good morning, Sir! All systems are operational.''',
-    other: '''Good morning! All systems are operational.''',
+    male: 'Good morning, Sir! All systems are operational.',
+    other: 'Good morning! All systems are operational.',
   ),
   logbook: Logbook(
-    header: '''Nightly Log''',
-    details: (int howMany, {int? precision}) => Intl.plural(
+    header: 'Nightly Log',
+    details: (num howMany, {int? precision}) => Intl.plural(
       howMany,
-      name: r'''details''',
+      name: 'details',
       one: '''There was ${howMany} incident reported.''',
       other: '''There were ${howMany} incidents reported.''',
       precision: precision,
     ),
-    summary: '''Summary of all activities during the night.''',
+    summary: 'Summary of all activities during the night.',
     alerts: LogbookAlerts(
-      title: '''Alerts''',
+      title: 'Alerts',
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
-        name: r'''alert_message''',
+        name: 'alert_message',
         female: '''Captainess, you received ${alerts}.''',
         male: '''Captain, you received ${alerts}.''',
         other: '''Captainx, you received ${alerts}.''',
       ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
+      alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''alerts''',
+        name: 'alerts',
         one: '''${howMany} new alert''',
         other: '''${howMany} new alerts''',
         precision: precision,
@@ -470,7 +582,7 @@ final LocalizationMessages en = LocalizationMessages(
 final LocalizationMessages en_CA = LocalizationMessages(
   appTitle: AppTitle(
     title: ({required String today}) => '''Ship Log, ${today}''',
-    dateFormat: '''dd/MM/yyyy''',
+    dateFormat: 'dd/MM/yyyy',
   ),
   locale: $Locale(
     defaultLocale: ({required String locale}) => '''Default locale: ${locale}''',
@@ -478,52 +590,52 @@ final LocalizationMessages en_CA = LocalizationMessages(
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
-      title: '''Good morning, Captain!''',
+      title: 'Good morning, Captain!',
     ),
     floatingButton: MainScreenFloatingButton(
-      tooltip: '''Add Event''',
+      tooltip: 'Add Event',
     ),
   ),
-  eventsLogged: (int howMany, {int? precision}) => Intl.plural(
+  eventsLogged: (num howMany, {int? precision}) => Intl.plural(
     howMany,
-    name: r'''events_logged''',
-    zero: '''No events occurred during your sleep''',
+    name: 'events_logged',
+    zero: 'No events occurred during your sleep',
     one: '''${howMany} event occurred during your sleep''',
     two: '''${howMany} events occurred during your sleep''',
     few: '''${howMany} events occurred during your sleep''',
-    many: '''Many events occurred during your sleep''',
+    many: 'Many events occurred during your sleep',
     other: '''${howMany} events occurred during your sleep''',
     precision: precision,
   ),
   officerReport: (Gender gender) => Intl.gender(
     gender.name,
-    name: r'''officer_report''',
+    name: 'officer_report',
     female: '''Good morning, Ma'am! All systems are operational.''',
-    male: '''Good morning, Sir! All systems are operational.''',
-    other: '''Good morning! All systems are operational.''',
+    male: 'Good morning, Sir! All systems are operational.',
+    other: 'Good morning! All systems are operational.',
   ),
   logbook: Logbook(
-    header: '''Nightly Log''',
-    details: (int howMany, {int? precision}) => Intl.plural(
+    header: 'Nightly Log',
+    details: (num howMany, {int? precision}) => Intl.plural(
       howMany,
-      name: r'''details''',
+      name: 'details',
       one: '''There was ${howMany} incident reported.''',
       other: '''There were ${howMany} incidents reported.''',
       precision: precision,
     ),
-    summary: '''Summary of all activities during the night.''',
+    summary: 'Summary of all activities during the night.',
     alerts: LogbookAlerts(
-      title: '''Alerts''',
+      title: 'Alerts',
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
-        name: r'''alert_message''',
+        name: 'alert_message',
         female: '''Captainess, you received ${alerts}.''',
         male: '''Captain, you received ${alerts}.''',
         other: '''Captainx, you received ${alerts}.''',
       ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
+      alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''alerts''',
+        name: 'alerts',
         one: '''${howMany} new alert''',
         other: '''${howMany} new alerts''',
         precision: precision,
@@ -532,75 +644,75 @@ final LocalizationMessages en_CA = LocalizationMessages(
   ),
   captainGreeting: ({required String username}) => '''Welcome back, Captain ${username}!''',
 );
-final LocalizationMessages fr_FR = LocalizationMessages(
+final LocalizationMessages ru_RU = LocalizationMessages(
   appTitle: AppTitle(
-    title: ({required String today}) => '''Ship Log, ${today}''',
-    dateFormat: '''MM/dd/yyyy''',
+    title: ({required String today}) => '''Бортовой Журнал, ${today}''',
+    dateFormat: 'dd-MM-yyyy',
   ),
   locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Langue par défaut : ${locale}''',
-    selectedLocale: ({required String locale}) => '''Langue sélectionnée : ${locale}''',
+    defaultLocale: ({required String locale}) => '''Язык по умолчанию: ${locale}''',
+    selectedLocale: ({required String locale}) => '''Выбранный язык: ${locale}''',
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
-      title: '''Bonjour, Commandant !''',
+      title: 'Доброе утро, Капитан!',
     ),
     floatingButton: MainScreenFloatingButton(
-      tooltip: '''Add Event''',
+      tooltip: 'Добавить событие',
     ),
   ),
-  eventsLogged: (int howMany, {int? precision}) => Intl.plural(
+  eventsLogged: (num howMany, {int? precision}) => Intl.plural(
     howMany,
-    name: r'''events_logged''',
-    zero: '''No events occurred during your sleep''',
-    one: '''${howMany} event occurred during your sleep''',
-    two: '''${howMany} events occurred during your sleep''',
-    few: '''${howMany} events occurred during your sleep''',
-    many: '''De nombreux événements se sont produits pendant votre sommeil''',
-    other: '''${howMany} events occurred during your sleep''',
+    name: 'events_logged',
+    zero: 'Во время вашего сна не произошло никаких событий',
+    one: '''Произошло ${howMany} событие во время вашего сна''',
+    two: '''Произошло ${howMany} события во время вашего сна''',
+    few: '''Произошло ${howMany} события во время вашего сна''',
+    many: 'Произошло много событий во время вашего сна',
+    other: '''Произошло ${howMany} событий во время вашего сна''',
     precision: precision,
   ),
   officerReport: (Gender gender) => Intl.gender(
     gender.name,
-    name: r'''officer_report''',
-    female: '''Bonjour, Madame ! Tous les systèmes sont opérationnels.''',
-    male: '''Bonjour, Monsieur ! Tous les systèmes sont opérationnels.''',
-    other: '''Bonjour ! Tous les systèmes sont opérationnels.''',
+    name: 'officer_report',
+    female: 'Доброе утро, Мадам! Все системы работают нормально.',
+    male: 'Доброе утро, Сэр! Все системы работают нормально.',
+    other: 'Доброе утро! Все системы работают нормально.',
   ),
   logbook: Logbook(
-    header: '''Journal de Nuit''',
-    details: (int howMany, {int? precision}) => Intl.plural(
+    header: 'Ночной журнал',
+    details: (num howMany, {int? precision}) => Intl.plural(
       howMany,
-      name: r'''details''',
-      one: '''There was ${howMany} incident reported.''',
-      other: '''There were ${howMany} incidents reported.''',
+      name: 'details',
+      one: '''Было сообщено о ${howMany} инциденте.''',
+      other: '''Было сообщено о ${howMany} инцидентах.''',
       precision: precision,
     ),
-    summary: '''Résumé de toutes les activités nocturnes.''',
+    summary: 'Краткий обзор всех ночных активностей.',
     alerts: LogbookAlerts(
-      title: '''Alerts''',
+      title: 'Оповещения',
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
-        name: r'''alert_message''',
-        female: '''Commandante, vous avez reçu ${alerts}.''',
-        male: '''Commandant, vous avez reçu ${alerts}.''',
-        other: '''Captainx, you received ${alerts}.''',
+        name: 'alert_message',
+        female: '''Капитанка, вы получили ${alerts}.''',
+        male: '''Капитан, вы получили ${alerts}.''',
+        other: '''Капитанн, вы получили ${alerts}.''',
       ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
+      alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''alerts''',
-        one: '''${howMany} new alert''',
-        other: '''${howMany} new alerts''',
+        name: 'alerts',
+        one: '''${howMany} новое оповещение''',
+        other: '''${howMany} новых оповещений''',
         precision: precision,
       ),
     ),
   ),
-  captainGreeting: ({required String username}) => '''Bon retour, Commandant ${username}!''',
+  captainGreeting: ({required String username}) => '''Добро пожаловать обратно, Капитан ${username}!''',
 );
 final LocalizationMessages fr_CA = LocalizationMessages(
   appTitle: AppTitle(
     title: ({required String today}) => '''Journal de Bord, ${today}''',
-    dateFormat: '''yyyy-MM-dd''',
+    dateFormat: 'yyyy-MM-dd',
   ),
   locale: $Locale(
     defaultLocale: ({required String locale}) => '''Locale par défaut : ${locale}''',
@@ -608,15 +720,15 @@ final LocalizationMessages fr_CA = LocalizationMessages(
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
-      title: '''Bonjour, Capitaine!''',
+      title: 'Bonjour, Capitaine!',
     ),
     floatingButton: MainScreenFloatingButton(
-      tooltip: '''Ajouter un Événement''',
+      tooltip: 'Ajouter un Événement',
     ),
   ),
-  eventsLogged: (int howMany, {int? precision}) => Intl.plural(
+  eventsLogged: (num howMany, {int? precision}) => Intl.plural(
     howMany,
-    name: r'''events_logged''',
+    name: 'events_logged',
     zero: '''Aucun événement ne s'est produit pendant votre sommeil''',
     one: '''${howMany} événement s'est produit pendant votre sommeil''',
     two: '''${howMany} événements se sont produits pendant votre sommeil''',
@@ -627,33 +739,33 @@ final LocalizationMessages fr_CA = LocalizationMessages(
   ),
   officerReport: (Gender gender) => Intl.gender(
     gender.name,
-    name: r'''officer_report''',
-    female: '''Bonjour, Madame! Tous les systèmes sont opérationnels.''',
-    male: '''Bonjour, Monsieur! Tous les systèmes sont opérationnels.''',
-    other: '''Bonjour! Tous les systèmes sont opérationnels.''',
+    name: 'officer_report',
+    female: 'Bonjour, Madame! Tous les systèmes sont opérationnels.',
+    male: 'Bonjour, Monsieur! Tous les systèmes sont opérationnels.',
+    other: 'Bonjour! Tous les systèmes sont opérationnels.',
   ),
   logbook: Logbook(
-    header: '''Journal de Nuit''',
-    details: (int howMany, {int? precision}) => Intl.plural(
+    header: 'Journal de Nuit',
+    details: (num howMany, {int? precision}) => Intl.plural(
       howMany,
-      name: r'''details''',
+      name: 'details',
       one: '''Il y a eu ${howMany} incident signalé.''',
       other: '''Il y a eu ${howMany} incidents signalés.''',
       precision: precision,
     ),
-    summary: '''Résumé de toutes les activités pendant la nuit.''',
+    summary: 'Résumé de toutes les activités pendant la nuit.',
     alerts: LogbookAlerts(
-      title: '''Alertes''',
+      title: 'Alertes',
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
-        name: r'''alert_message''',
+        name: 'alert_message',
         female: '''Capitaine, vous avez reçu ${alerts}.''',
         male: '''Capitaine, vous avez reçu ${alerts}.''',
         other: '''Capitaine, vous avez reçu ${alerts}.''',
       ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
+      alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
-        name: r'''alerts''',
+        name: 'alerts',
         one: '''${howMany} nouvelle alerte''',
         other: '''${howMany} nouvelles alertes''',
         precision: precision,
@@ -662,77 +774,11 @@ final LocalizationMessages fr_CA = LocalizationMessages(
   ),
   captainGreeting: ({required String username}) => '''Bon retour, Capitaine ${username}!''',
 );
-final LocalizationMessages ru_RU = LocalizationMessages(
-  appTitle: AppTitle(
-    title: ({required String today}) => '''Бортовой Журнал, ${today}''',
-    dateFormat: '''dd-MM-yyyy''',
-  ),
-  locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Язык по умолчанию: ${locale}''',
-    selectedLocale: ({required String locale}) => '''Выбранный язык: ${locale}''',
-  ),
-  mainScreen: MainScreen(
-    header: MainScreenHeader(
-      title: '''Доброе утро, Капитан!''',
-    ),
-    floatingButton: MainScreenFloatingButton(
-      tooltip: '''Добавить событие''',
-    ),
-  ),
-  eventsLogged: (int howMany, {int? precision}) => Intl.plural(
-    howMany,
-    name: r'''events_logged''',
-    zero: '''Во время вашего сна не произошло никаких событий''',
-    one: '''Произошло ${howMany} событие во время вашего сна''',
-    two: '''Произошло ${howMany} события во время вашего сна''',
-    few: '''Произошло ${howMany} события во время вашего сна''',
-    many: '''Произошло много событий во время вашего сна''',
-    other: '''Произошло ${howMany} событий во время вашего сна''',
-    precision: precision,
-  ),
-  officerReport: (Gender gender) => Intl.gender(
-    gender.name,
-    name: r'''officer_report''',
-    female: '''Доброе утро, Мадам! Все системы работают нормально.''',
-    male: '''Доброе утро, Сэр! Все системы работают нормально.''',
-    other: '''Доброе утро! Все системы работают нормально.''',
-  ),
-  logbook: Logbook(
-    header: '''Ночной журнал''',
-    details: (int howMany, {int? precision}) => Intl.plural(
-      howMany,
-      name: r'''details''',
-      one: '''Было сообщено о ${howMany} инциденте.''',
-      other: '''Было сообщено о ${howMany} инцидентах.''',
-      precision: precision,
-    ),
-    summary: '''Краткий обзор всех ночных активностей.''',
-    alerts: LogbookAlerts(
-      title: '''Оповещения''',
-      alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
-        gender.name,
-        name: r'''alert_message''',
-        female: '''Капитанка, вы получили ${alerts}.''',
-        male: '''Капитан, вы получили ${alerts}.''',
-        other: '''Капитанн, вы получили ${alerts}.''',
-      ),
-      alerts: (int howMany, {int? precision}) => Intl.plural(
-        howMany,
-        name: r'''alerts''',
-        one: '''${howMany} новое оповещение''',
-        other: '''${howMany} новых оповещений''',
-        precision: precision,
-      ),
-    ),
-  ),
-  captainGreeting: ({required String username}) => '''Добро пожаловать обратно, Капитан ${username}!''',
-);
 final Map<Locale, LocalizationMessages> _languageMap = {
   Locale('en'): en,
   Locale('en', 'CA'): en_CA,
-  Locale('fr', 'FR'): fr_FR,
-  Locale('fr', 'CA'): fr_CA,
   Locale('ru', 'RU'): ru_RU,
+  Locale('fr', 'CA'): fr_CA,
 };
 
 final Map<Locale, LocalizationMessages> _providersLanguagesMap = {};
@@ -845,13 +891,12 @@ List<LocalizationsDelegate> localizationsDelegatesWithProviders(
   ];
 }
 
-// Supported locales: en, en_CA, fr_FR, fr_CA, ru_RU
+// Supported locales: en, en_CA, ru_RU, fr_CA
 const List<Locale> supportedLocales = [
   Locale('en'),
   Locale('en', 'CA'),
-  Locale('fr', 'FR'),
-  Locale('fr', 'CA'),
   Locale('ru', 'RU'),
+  Locale('fr', 'CA'),
 ];
 
 List<Locale> supportedLocalesWithProviders(List<LocalizationProvider<LocalizationMessages>> providers) => [
