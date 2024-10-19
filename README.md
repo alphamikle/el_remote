@@ -1,6 +1,6 @@
 # Easiest Remote Localization
 
-![Easiest Remote Localization Logo](./assets/logo.png)
+![Easiest Remote Localization Logo](https://github.com/alphamikle/el_remote/blob/main/assets/logo.png?raw=true)
 
 ---
 
@@ -10,7 +10,7 @@
 
 ```yaml
 dependencies:
-  easiest_remote_localization: ^1.0.0
+  easiest_remote_localization: ^1.0.2
 ```
 
 ## Setup

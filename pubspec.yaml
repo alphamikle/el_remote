@@ -1,6 +1,6 @@
 name: easiest_remote_localization
 description: "Remote localization providers for the Easiest Localization Package"
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/alphamikle/el_remote
 
 environment:
