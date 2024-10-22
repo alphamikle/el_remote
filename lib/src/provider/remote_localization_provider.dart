@@ -13,11 +13,14 @@ import '../service/remote_localization_service.dart';
 import '../tools/extensions.dart';
 import '../tools/types.dart';
 
-String _cacheKey(Locale locale) => '3AAABA2E-45EF-4EDB-B8BE-BEC9DA258A7C | REMOTE LOCALIZATION PROVIDER CACHE ($locale) | 0E555CAC-F6DE-4EFB-BB9C-13C441CCFF52';
+String _cacheKey(Locale locale) =>
+    '3AAABA2E-45EF-4EDB-B8BE-BEC9DA258A7C | REMOTE LOCALIZATION PROVIDER CACHE ($locale) | 0E555CAC-F6DE-4EFB-BB9C-13C441CCFF52';
 
-typedef LocalizationMessagesFactory<Messages> = FutureOr<Messages> Function(RemoteSource source, Json content);
+typedef LocalizationMessagesFactory<Messages> = FutureOr<Messages> Function(
+    RemoteSource source, Json content);
 
-class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messages> {
+class RemoteLocalizationProvider<Messages>
+    implements LocalizationProvider<Messages> {
   RemoteLocalizationProvider({
     required List<RemoteSource> sources,
     required LocalizationMessagesFactory<Messages> factory,
@@ -30,7 +33,9 @@ class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messa
         _sources = sources {
     final Dio dio = Dio(options);
     _service = RemoteLocalizationService(dio);
-    supportedLocales = sources.map((RemoteSource source) => source.locale).toList(growable: false);
+    supportedLocales = sources
+        .map((RemoteSource source) => source.locale)
+        .toList(growable: false);
   }
 
   RemoteLocalizationProvider.raw({
@@ -67,7 +72,8 @@ class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messa
   String get name => _name ?? 'RemoteLocalizationProvider';
 
   @override
-  bool canLoad(Locale locale) => _sources.any((RemoteSource it) => it.locale == locale);
+  bool canLoad(Locale locale) =>
+      _sources.any((RemoteSource it) => it.locale == locale);
 
   @override
   Future<Messages> fetchLocalization(Locale locale) async {
@@ -78,7 +84,8 @@ class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messa
       _sharedPreferencesInitialized = true;
     }
 
-    final RemoteSource? source = _sources.firstWhereOrNull((RemoteSource source) => source.locale == locale);
+    final RemoteSource? source = _sources
+        .firstWhereOrNull((RemoteSource source) => source.locale == locale);
 
     if (source == null) {
       throw Exception('Locale $locale is not supported');
@@ -115,20 +122,25 @@ class RemoteLocalizationProvider<Messages> implements LocalizationProvider<Messa
       _cache[locale] = cache;
       await _sharedPreferences.setString(cacheKey, jsonEncode(cache.toJson()));
     } catch (error, stackTrace) {
-      log('Error on load remote localization content', error: error, stackTrace: stackTrace, name: 'RemoteLocalizationProvider');
+      log('Error on load remote localization content',
+          error: error,
+          stackTrace: stackTrace,
+          name: 'RemoteLocalizationProvider');
     }
 
     response ??= cachedValue?.messages;
 
     if (response == null) {
-      throw Exception('Failed to load localization content for the locale $locale');
+      throw Exception(
+          'Failed to load localization content for the locale $locale');
     }
 
     try {
       final Messages messages = await _factory(source, response);
       return messages;
     } catch (error, stackTrace) {
-      log('Error on parsing remote localization source', error: error, stackTrace: stackTrace);
+      log('Error on parsing remote localization source',
+          error: error, stackTrace: stackTrace);
       rethrow;
     }
   }

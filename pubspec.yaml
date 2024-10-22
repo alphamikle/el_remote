@@ -1,6 +1,6 @@
 name: easiest_remote_localization
 description: "Remote localization providers for the Easiest Localization Package"
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/alphamikle/el_remote
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
   json_annotation: ^4.9.0
   yaml: ^3.1.2
   shared_preferences: ^2.3.2
-  easiest_localization: ^2.0.0
+  easiest_localization: ^2.0.1
 
 dev_dependencies:
   flutter_test:

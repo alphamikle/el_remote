@@ -11,7 +11,8 @@ Json castToJson(dynamic json) {
     final Map<String, dynamic> result = <String, dynamic>{};
     for (final MapEntry<dynamic, dynamic> entry in json.entries) {
       if (entry.key is! String) {
-        throw Exception('${entry.key} is not String and ${json.runtimeType} is not a Map<String, dynamic>');
+        throw Exception(
+            '${entry.key} is not String and ${json.runtimeType} is not a Map<String, dynamic>');
       }
       final String key = entry.key as String;
       final dynamic value = entry.value;

@@ -4,10 +4,13 @@
 
 import 'dart:developer' show log;
 
-import 'package:easiest_localization/easiest_localization.dart' show LocalizationProvider;
+import 'package:easiest_localization/easiest_localization.dart'
+    show LocalizationProvider;
 import 'package:flutter/foundation.dart' show kDebugMode;
-import 'package:flutter/widgets.dart' show BuildContext, Locale, Localizations, LocalizationsDelegate;
-import 'package:flutter_localizations/flutter_localizations.dart' show GlobalMaterialLocalizations;
+import 'package:flutter/widgets.dart'
+    show BuildContext, Locale, Localizations, LocalizationsDelegate;
+import 'package:flutter_localizations/flutter_localizations.dart'
+    show GlobalMaterialLocalizations;
 import 'package:intl/intl.dart' show Intl;
 
 final RegExp _variableRegExp = RegExp(r'\$\{[^}]+\} ?');
@@ -31,8 +34,10 @@ class AppTitle {
   });
   factory AppTitle.fromJson(Map<String, dynamic> json) {
     return AppTitle(
-      title: ({required String today}) =>
-          (json['title'] ?? '').toString().replaceAll(r'${today}', today).replaceAll(_variableRegExp, ''),
+      title: ({required String today}) => (json['title'] ?? '')
+          .toString()
+          .replaceAll(r'${today}', today)
+          .replaceAll(_variableRegExp, ''),
       dateFormat: (json['date_format'] ?? '').toString(),
     );
   }
@@ -78,10 +83,15 @@ class $Locale {
   });
   factory $Locale.fromJson(Map<String, dynamic> json) {
     return $Locale(
-      defaultLocale: ({required String locale}) =>
-          (json['defaultLocale'] ?? '').toString().replaceAll(r'${locale}', locale).replaceAll(_variableRegExp, ''),
+      defaultLocale: ({required String locale}) => (json['defaultLocale'] ?? '')
+          .toString()
+          .replaceAll(r'${locale}', locale)
+          .replaceAll(_variableRegExp, ''),
       selectedLocale: ({required String locale}) =>
-          (json['selectedLocale'] ?? '').toString().replaceAll(r'${locale}', locale).replaceAll(_variableRegExp, ''),
+          (json['selectedLocale'] ?? '')
+              .toString()
+              .replaceAll(r'${locale}', locale)
+              .replaceAll(_variableRegExp, ''),
     );
   }
   final String Function({required String locale}) defaultLocale;
@@ -127,8 +137,10 @@ class MainScreen {
   });
   factory MainScreen.fromJson(Map<String, dynamic> json) {
     return MainScreen(
-      header: MainScreenHeader.fromJson((json['header'] as Map).cast<String, dynamic>()),
-      floatingButton: MainScreenFloatingButton.fromJson((json['floating_button'] as Map).cast<String, dynamic>()),
+      header: MainScreenHeader.fromJson(
+          (json['header'] as Map).cast<String, dynamic>()),
+      floatingButton: MainScreenFloatingButton.fromJson(
+          (json['floating_button'] as Map).cast<String, dynamic>()),
     );
   }
   final MainScreenHeader header;
@@ -262,24 +274,41 @@ class Logbook {
       details: (num howMany, {int? precision}) => Intl.plural(
         howMany,
         name: 'details',
-        zero: json['details']['zero'] == null || json['details']['zero'].toString().trim() == ''
+        zero: json['details']['zero'] == null ||
+                json['details']['zero'].toString().trim() == ''
             ? null
-            : json['details']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json['details']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json['details']['two'] == null || json['details']['two'].toString().trim() == ''
+            : json['details']['zero']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['details']['one'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
+        two: json['details']['two'] == null ||
+                json['details']['two'].toString().trim() == ''
             ? null
-            : json['details']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json['details']['few'] == null || json['details']['few'].toString().trim() == ''
+            : json['details']['two']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        few: json['details']['few'] == null ||
+                json['details']['few'].toString().trim() == ''
             ? null
-            : json['details']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json['details']['many'] == null || json['details']['many'].toString().trim() == ''
+            : json['details']['few']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        many: json['details']['many'] == null ||
+                json['details']['many'].toString().trim() == ''
             ? null
-            : json['details']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json['details']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['details']['many']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['details']['other'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
       summary: (json['summary'] ?? '').toString(),
-      alerts: LogbookAlerts.fromJson((json['alerts'] as Map).cast<String, dynamic>()),
+      alerts: LogbookAlerts.fromJson(
+          (json['alerts'] as Map).cast<String, dynamic>()),
     );
   }
   final String header;
@@ -335,15 +364,20 @@ class LogbookAlerts {
       alertMessage: (Gender gender, {required String alerts}) => Intl.gender(
         gender.name,
         name: 'alert_message',
-        female: json['alert_message']['female'] == null || json['alert_message']['female'].toString().trim() == ''
+        female: json['alert_message']['female'] == null ||
+                json['alert_message']['female'].toString().trim() == ''
             ? null
             : json['alert_message']['female']
                 .toString()
                 .replaceAll(r'${alerts}', alerts)
                 .replaceAll(_variableRegExp, ''),
-        male: json['alert_message']['male'] == null || json['alert_message']['male'].toString().trim() == ''
+        male: json['alert_message']['male'] == null ||
+                json['alert_message']['male'].toString().trim() == ''
             ? null
-            : json['alert_message']['male'].toString().replaceAll(r'${alerts}', alerts).replaceAll(_variableRegExp, ''),
+            : json['alert_message']['male']
+                .toString()
+                .replaceAll(r'${alerts}', alerts)
+                .replaceAll(_variableRegExp, ''),
         other: (json['alert_message']['other'] ?? '')
             .toString()
             .replaceAll(r'${alerts}', alerts)
@@ -352,20 +386,36 @@ class LogbookAlerts {
       alerts: (num howMany, {int? precision}) => Intl.plural(
         howMany,
         name: 'alerts',
-        zero: json['alerts']['zero'] == null || json['alerts']['zero'].toString().trim() == ''
+        zero: json['alerts']['zero'] == null ||
+                json['alerts']['zero'].toString().trim() == ''
             ? null
-            : json['alerts']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json['alerts']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json['alerts']['two'] == null || json['alerts']['two'].toString().trim() == ''
+            : json['alerts']['zero']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['alerts']['one'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
+        two: json['alerts']['two'] == null ||
+                json['alerts']['two'].toString().trim() == ''
             ? null
-            : json['alerts']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json['alerts']['few'] == null || json['alerts']['few'].toString().trim() == ''
+            : json['alerts']['two']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        few: json['alerts']['few'] == null ||
+                json['alerts']['few'].toString().trim() == ''
             ? null
-            : json['alerts']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json['alerts']['many'] == null || json['alerts']['many'].toString().trim() == ''
+            : json['alerts']['few']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        many: json['alerts']['many'] == null ||
+                json['alerts']['many'].toString().trim() == ''
             ? null
-            : json['alerts']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json['alerts']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['alerts']['many']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['alerts']['other'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
     );
@@ -421,44 +471,66 @@ class LocalizationMessages {
   });
   factory LocalizationMessages.fromJson(Map<String, dynamic> json) {
     return LocalizationMessages(
-      appTitle: AppTitle.fromJson((json['app_title'] as Map).cast<String, dynamic>()),
+      appTitle:
+          AppTitle.fromJson((json['app_title'] as Map).cast<String, dynamic>()),
       locale: $Locale.fromJson((json['locale'] as Map).cast<String, dynamic>()),
-      mainScreen: MainScreen.fromJson((json['main_screen'] as Map).cast<String, dynamic>()),
+      mainScreen: MainScreen.fromJson(
+          (json['main_screen'] as Map).cast<String, dynamic>()),
       eventsLogged: (num howMany, {int? precision}) => Intl.plural(
         howMany,
         name: 'events_logged',
-        zero: json['events_logged']['zero'] == null || json['events_logged']['zero'].toString().trim() == ''
+        zero: json['events_logged']['zero'] == null ||
+                json['events_logged']['zero'].toString().trim() == ''
             ? null
-            : json['events_logged']['zero'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        one: (json['events_logged']['one'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
-        two: json['events_logged']['two'] == null || json['events_logged']['two'].toString().trim() == ''
+            : json['events_logged']['zero']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        one: (json['events_logged']['one'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
+        two: json['events_logged']['two'] == null ||
+                json['events_logged']['two'].toString().trim() == ''
             ? null
-            : json['events_logged']['two'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        few: json['events_logged']['few'] == null || json['events_logged']['few'].toString().trim() == ''
+            : json['events_logged']['two']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        few: json['events_logged']['few'] == null ||
+                json['events_logged']['few'].toString().trim() == ''
             ? null
-            : json['events_logged']['few'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        many: json['events_logged']['many'] == null || json['events_logged']['many'].toString().trim() == ''
+            : json['events_logged']['few']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        many: json['events_logged']['many'] == null ||
+                json['events_logged']['many'].toString().trim() == ''
             ? null
-            : json['events_logged']['many'].toString().replaceAll(r'${howMany}', howMany.toString()),
-        other: (json['events_logged']['other'] ?? '').toString().replaceAll(r'${howMany}', howMany.toString()),
+            : json['events_logged']['many']
+                .toString()
+                .replaceAll(r'${howMany}', howMany.toString()),
+        other: (json['events_logged']['other'] ?? '')
+            .toString()
+            .replaceAll(r'${howMany}', howMany.toString()),
         precision: precision,
       ),
       officerReport: (Gender gender) => Intl.gender(
         gender.name,
         name: 'officer_report',
-        female: json['officer_report']['female'] == null || json['officer_report']['female'].toString().trim() == ''
+        female: json['officer_report']['female'] == null ||
+                json['officer_report']['female'].toString().trim() == ''
             ? null
             : json['officer_report']['female'].toString(),
-        male: json['officer_report']['male'] == null || json['officer_report']['male'].toString().trim() == ''
+        male: json['officer_report']['male'] == null ||
+                json['officer_report']['male'].toString().trim() == ''
             ? null
             : json['officer_report']['male'].toString(),
         other: (json['officer_report']['other'] ?? '').toString(),
       ),
-      logbook: Logbook.fromJson((json['logbook'] as Map).cast<String, dynamic>()),
-      captainGreeting: ({required String username}) => (json['captain_greeting'] ?? '')
-          .toString()
-          .replaceAll(r'${username}', username)
-          .replaceAll(_variableRegExp, ''),
+      logbook:
+          Logbook.fromJson((json['logbook'] as Map).cast<String, dynamic>()),
+      captainGreeting: ({required String username}) =>
+          (json['captain_greeting'] ?? '')
+              .toString()
+              .replaceAll(r'${username}', username)
+              .replaceAll(_variableRegExp, ''),
     );
   }
   final AppTitle appTitle;
@@ -520,8 +592,10 @@ final LocalizationMessages en = LocalizationMessages(
     dateFormat: 'MM/dd/yyyy',
   ),
   locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Default locale: ${locale}''',
-    selectedLocale: ({required String locale}) => '''Selected locale: ${locale}''',
+    defaultLocale: ({required String locale}) =>
+        '''Default locale: ${locale}''',
+    selectedLocale: ({required String locale}) =>
+        '''Selected locale: ${locale}''',
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
@@ -577,7 +651,8 @@ final LocalizationMessages en = LocalizationMessages(
       ),
     ),
   ),
-  captainGreeting: ({required String username}) => '''Welcome back, Captain ${username}!''',
+  captainGreeting: ({required String username}) =>
+      '''Welcome back, Captain ${username}!''',
 );
 final LocalizationMessages en_CA = LocalizationMessages(
   appTitle: AppTitle(
@@ -585,8 +660,10 @@ final LocalizationMessages en_CA = LocalizationMessages(
     dateFormat: 'dd/MM/yyyy',
   ),
   locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Default locale: ${locale}''',
-    selectedLocale: ({required String locale}) => '''Selected locale: ${locale}''',
+    defaultLocale: ({required String locale}) =>
+        '''Default locale: ${locale}''',
+    selectedLocale: ({required String locale}) =>
+        '''Selected locale: ${locale}''',
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
@@ -642,7 +719,8 @@ final LocalizationMessages en_CA = LocalizationMessages(
       ),
     ),
   ),
-  captainGreeting: ({required String username}) => '''Welcome back, Captain ${username}!''',
+  captainGreeting: ({required String username}) =>
+      '''Welcome back, Captain ${username}!''',
 );
 final LocalizationMessages ru_RU = LocalizationMessages(
   appTitle: AppTitle(
@@ -650,8 +728,10 @@ final LocalizationMessages ru_RU = LocalizationMessages(
     dateFormat: 'dd-MM-yyyy',
   ),
   locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Язык по умолчанию: ${locale}''',
-    selectedLocale: ({required String locale}) => '''Выбранный язык: ${locale}''',
+    defaultLocale: ({required String locale}) =>
+        '''Язык по умолчанию: ${locale}''',
+    selectedLocale: ({required String locale}) =>
+        '''Выбранный язык: ${locale}''',
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
@@ -707,7 +787,8 @@ final LocalizationMessages ru_RU = LocalizationMessages(
       ),
     ),
   ),
-  captainGreeting: ({required String username}) => '''Добро пожаловать обратно, Капитан ${username}!''',
+  captainGreeting: ({required String username}) =>
+      '''Добро пожаловать обратно, Капитан ${username}!''',
 );
 final LocalizationMessages fr_CA = LocalizationMessages(
   appTitle: AppTitle(
@@ -715,8 +796,10 @@ final LocalizationMessages fr_CA = LocalizationMessages(
     dateFormat: 'yyyy-MM-dd',
   ),
   locale: $Locale(
-    defaultLocale: ({required String locale}) => '''Locale par défaut : ${locale}''',
-    selectedLocale: ({required String locale}) => '''Locale sélectionnée : ${locale}''',
+    defaultLocale: ({required String locale}) =>
+        '''Locale par défaut : ${locale}''',
+    selectedLocale: ({required String locale}) =>
+        '''Locale sélectionnée : ${locale}''',
   ),
   mainScreen: MainScreen(
     header: MainScreenHeader(
@@ -772,7 +855,8 @@ final LocalizationMessages fr_CA = LocalizationMessages(
       ),
     ),
   ),
-  captainGreeting: ({required String username}) => '''Bon retour, Capitaine ${username}!''',
+  captainGreeting: ({required String username}) =>
+      '''Bon retour, Capitaine ${username}!''',
 );
 final Map<Locale, LocalizationMessages> _languageMap = {
   Locale('en'): en,
@@ -783,7 +867,8 @@ final Map<Locale, LocalizationMessages> _languageMap = {
 
 final Map<Locale, LocalizationMessages> _providersLanguagesMap = {};
 
-class EasiestLocalizationDelegate extends LocalizationsDelegate<LocalizationMessages> {
+class EasiestLocalizationDelegate
+    extends LocalizationsDelegate<LocalizationMessages> {
   EasiestLocalizationDelegate({
     List<LocalizationProvider<LocalizationMessages>> providers = const [],
   }) {
@@ -798,7 +883,8 @@ class EasiestLocalizationDelegate extends LocalizationsDelegate<LocalizationMess
 
   @override
   bool isSupported(Locale locale) {
-    final bool supportedByProviders = _providers.any((LocalizationProvider value) => value.canLoad(locale));
+    final bool supportedByProviders =
+        _providers.any((LocalizationProvider value) => value.canLoad(locale));
     if (supportedByProviders) {
       return true;
     }
@@ -819,7 +905,8 @@ class EasiestLocalizationDelegate extends LocalizationsDelegate<LocalizationMess
 
     LocalizationProvider<LocalizationMessages>? localizationProvider;
 
-    for (final LocalizationProvider<LocalizationMessages> provider in _providers) {
+    for (final LocalizationProvider<LocalizationMessages> provider
+        in _providers) {
       if (provider.canLoad(locale)) {
         localizationProvider = provider;
         break;
@@ -843,20 +930,26 @@ class EasiestLocalizationDelegate extends LocalizationsDelegate<LocalizationMess
   }
 
   @override
-  bool shouldReload(LocalizationsDelegate<LocalizationMessages> old) => old != this;
+  bool shouldReload(LocalizationsDelegate<LocalizationMessages> old) =>
+      old != this;
 }
 
 class Messages {
-  static LocalizationMessages of(BuildContext context) => Localizations.of(context, LocalizationMessages)!;
+  static LocalizationMessages of(BuildContext context) =>
+      Localizations.of(context, LocalizationMessages)!;
 
-  static LocalizationMessages? getContent(Locale locale) => _loadLocalLocale(locale);
+  static LocalizationMessages? getContent(Locale locale) =>
+      _loadLocalLocale(locale);
 
   static LocalizationMessages get el {
     final String? defaultLocaleString = Intl.defaultLocale;
-    final List<String> localeParticles = defaultLocaleString == null ? [] : defaultLocaleString.split(RegExp(r'[_-]'));
+    final List<String> localeParticles = defaultLocaleString == null
+        ? []
+        : defaultLocaleString.split(RegExp(r'[_-]'));
     final Locale? defaultLocale = localeParticles.isEmpty
         ? null
-        : Locale(localeParticles.first, localeParticles.length > 1 ? localeParticles[1] : null);
+        : Locale(localeParticles.first,
+            localeParticles.length > 1 ? localeParticles[1] : null);
     LocalizationMessages? localeContent = _providersLanguagesMap[defaultLocale];
     localeContent ??= _languageMap[defaultLocale] ?? _languageMap.values.first;
     return localeContent;
@@ -899,8 +992,11 @@ const List<Locale> supportedLocales = [
   Locale('fr', 'CA'),
 ];
 
-List<Locale> supportedLocalesWithProviders(List<LocalizationProvider<LocalizationMessages>> providers) => [
-      for (final LocalizationProvider provider in providers) ...provider.supportedLocales,
+List<Locale> supportedLocalesWithProviders(
+        List<LocalizationProvider<LocalizationMessages>> providers) =>
+    [
+      for (final LocalizationProvider provider in providers)
+        ...provider.supportedLocales,
       ...supportedLocales,
     ];
 

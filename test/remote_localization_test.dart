@@ -65,7 +65,8 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      final RemoteLocalizationProvider provider = RemoteLocalizationProvider<Json>.raw(
+      final RemoteLocalizationProvider provider =
+          RemoteLocalizationProvider<Json>.raw(
         supportedLocales: [
           Locale('en'),
         ],

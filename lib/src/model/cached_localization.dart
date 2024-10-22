@@ -14,7 +14,8 @@ class CachedLocalization {
     required this.refreshAt,
   });
 
-  factory CachedLocalization.fromJson(dynamic json) => _$CachedLocalizationFromJson(castToJson(json));
+  factory CachedLocalization.fromJson(dynamic json) =>
+      _$CachedLocalizationFromJson(castToJson(json));
 
   @JsonKey(fromJson: localeFromJson, toJson: localeToJson)
   final Locale locale;
@@ -23,7 +24,8 @@ class CachedLocalization {
 
   final DateTime refreshAt;
 
-  bool get needToUpdate => messages.isEmpty || DateTime.now().isAfter(refreshAt);
+  bool get needToUpdate =>
+      messages.isEmpty || DateTime.now().isAfter(refreshAt);
 
   bool get canBeUsed => messages.isNotEmpty && needToUpdate == false;
 

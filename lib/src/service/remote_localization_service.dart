@@ -27,10 +27,14 @@ class RemoteLocalizationService {
       } else if (data is Map) {
         return data is Json ? data : castToJson(data);
       }
-      log('The response of the RemoteLocalizationService should be a type of String. Actual response is:\n$data', name: 'RemoteLocalizationService');
+      log('The response of the RemoteLocalizationService should be a type of String. Actual response is:\n$data',
+          name: 'RemoteLocalizationService');
       return {};
     } catch (error, stackTrace) {
-      log('Error on load localization with source $source', error: error, stackTrace: stackTrace, name: 'RemoteLocalizationService');
+      log('Error on load localization with source $source',
+          error: error,
+          stackTrace: stackTrace,
+          name: 'RemoteLocalizationService');
     }
     return <String, dynamic>{};
   }

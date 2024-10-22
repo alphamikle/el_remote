@@ -10,7 +10,7 @@
 
 ```yaml
 dependencies:
-  easiest_remote_localization: ^1.0.2
+  easiest_remote_localization: ^1.0.3
 ```
 
 ## Setup

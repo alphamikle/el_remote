@@ -12,20 +12,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<RemoteLocalizationProvider<LocalizationMessages>> remoteLocalizationProviders = [
+    final List<RemoteLocalizationProvider<LocalizationMessages>>
+        remoteLocalizationProviders = [
       RemoteLocalizationProvider<LocalizationMessages>(
         options: BaseOptions(baseUrl: 'https://indieloper.b-cdn.net'),
         cacheTTL: const Duration(minutes: 10),
         sources: const [
-          RemoteSource(locale: Locale('en'), url: '/en.json', type: SourceType.json),
-          RemoteSource(locale: Locale('en', 'CA'), url: '/en_CA.json', type: SourceType.json),
-          RemoteSource(locale: Locale('fr', 'CA'), url: '/fr_CA.json', type: SourceType.json),
-          RemoteSource(locale: Locale('ru', 'RU'), url: '/ru_RU.json', type: SourceType.json),
+          RemoteSource(
+              locale: Locale('en'), url: '/en.json', type: SourceType.json),
+          RemoteSource(
+              locale: Locale('en', 'CA'),
+              url: '/en_CA.json',
+              type: SourceType.json),
+          RemoteSource(
+              locale: Locale('fr', 'CA'),
+              url: '/fr_CA.json',
+              type: SourceType.json),
+          RemoteSource(
+              locale: Locale('ru', 'RU'),
+              url: '/ru_RU.json',
+              type: SourceType.json),
 
           /// Ukrainian language exists only in CDN, without local version
-          RemoteSource(locale: Locale('uk', 'UA'), url: '/uk_UA.yaml', type: SourceType.yaml),
+          RemoteSource(
+              locale: Locale('uk', 'UA'),
+              url: '/uk_UA.yaml',
+              type: SourceType.yaml),
         ],
-        factory: (RemoteSource source, Json content) => LocalizationMessages.fromJson(content),
+        factory: (RemoteSource source, Json content) =>
+            LocalizationMessages.fromJson(content),
       ),
     ];
 
@@ -35,8 +50,10 @@ class MyApp extends StatelessWidget {
           DateTime.now(),
         ),
       ),
-      localizationsDelegates: localizationsDelegatesWithProviders(remoteLocalizationProviders),
-      supportedLocales: supportedLocalesWithProviders(remoteLocalizationProviders),
+      localizationsDelegates:
+          localizationsDelegatesWithProviders(remoteLocalizationProviders),
+      supportedLocales:
+          supportedLocalesWithProviders(remoteLocalizationProviders),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -113,8 +130,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: [
             const SizedBox(height: 16),
-            buildMessage(null, el.locale.defaultLocale(locale: Intl.defaultLocale ?? 'Unknown')),
-            buildMessage(null, el.locale.selectedLocale(locale: Localizations.localeOf(context).toString())),
+            buildMessage(
+                null,
+                el.locale
+                    .defaultLocale(locale: Intl.defaultLocale ?? 'Unknown')),
+            buildMessage(
+                null,
+                el.locale.selectedLocale(
+                    locale: Localizations.localeOf(context).toString())),
             buildMessage(el.eventsLogged(events)),
             buildMessage(
               el.officerReport(gender),
@@ -125,7 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             buildMessage(el.logbook.summary),
             buildMessage(
-              el.logbook.alerts.alertMessage(gender, alerts: el.logbook.alerts.alerts(events)),
+              el.logbook.alerts.alertMessage(gender,
+                  alerts: el.logbook.alerts.alerts(events)),
               el.logbook.alerts.title,
             ),
           ],
