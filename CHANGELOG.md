@@ -1,3 +1,4 @@
+## 1.0.4 – Upgraded dependencies
 ## 1.0.3 – Code formatting changes to get the higher pub score
 ## 1.0.2 – Minor readme changes
 ## 1.0.1 – Minor readme changes
